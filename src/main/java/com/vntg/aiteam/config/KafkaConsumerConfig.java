@@ -1,4 +1,4 @@
-package com.vntg.study.config;
+package com.vntg.aiteam.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +63,6 @@ public class KafkaConsumerConfig {
         return factory;
     }
 
-
     public ConsumerFactory<String, Object> greetingConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
@@ -75,6 +74,20 @@ public class KafkaConsumerConfig {
     public ConcurrentKafkaListenerContainerFactory<String, Object> greetingKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
         factory.setConsumerFactory(greetingConsumerFactory());
+        return factory;
+    }
+    
+    public ConsumerFactory<String, Object> aiteamConsumerFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "aiteam");
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Object.class));
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Object> aiteamKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<String, Object>();
+        factory.setConsumerFactory(aiteamConsumerFactory());
         return factory;
     }
 

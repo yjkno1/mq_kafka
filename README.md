@@ -1,2 +1,2 @@
-# mq_kafka
-mq_kafka
+# Canaria.AI_Consumer
+Canaria.AI_Consumer
